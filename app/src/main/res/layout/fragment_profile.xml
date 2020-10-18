@@ -11,7 +11,7 @@
         android:id="@+id/profile_greeting"
         android:layout_width="347dp"
         android:layout_height="89dp"
-        android:text="Hello friends, we are now in the profile section!"
+        android:text="We are in profile section!"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#000000"
         android:textSize="30sp"
