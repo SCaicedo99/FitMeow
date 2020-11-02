@@ -5,17 +5,21 @@
     android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
     tools:context=".GraphFragment">
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/bargraph"
-        android:layout_width="379dp"
+        android:layout_width="310dp"
         android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.217"></com.github.mikephil.charting.charts.BarChart>
+        app:layout_constraintVertical_bias="0.432"></com.github.mikephil.charting.charts.BarChart>
 
     <Button
         android:id="@+id/goToReport"
@@ -24,8 +28,10 @@
         android:text="See report"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bargraph" />
+        app:layout_constraintTop_toBottomOf="@+id/bargraph"
+        app:layout_constraintVertical_bias="0.27" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

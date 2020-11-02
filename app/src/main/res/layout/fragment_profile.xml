@@ -11,22 +11,6 @@
     android:paddingTop="16dp"
     tools:context=".ProfileFragment" >
 
-    <TextView
-        android:id="@+id/profile_greeting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile section"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#000000"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.061" />
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,7 +32,7 @@
             android:id="@+id/input_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="8"
             android:hint="E.g. Teemo"
             android:inputType="textPersonName"
             android:textSize="32sp" />
@@ -80,7 +64,7 @@
             android:id="@+id/input_current_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="8"
             android:hint="E.g. 10"
             android:inputType="number"
             android:textSize="32sp" />
@@ -97,7 +81,7 @@
             android:id="@+id/input_ideal_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="8"
             android:hint="E.g. 8"
             android:inputType="number"
             android:textSize="32sp" />
