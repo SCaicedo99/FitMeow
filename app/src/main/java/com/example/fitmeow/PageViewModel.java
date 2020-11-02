@@ -9,35 +9,38 @@ public class PageViewModel extends ViewModel {
     /**
      * Live Data Instance
      */
-    private MutableLiveData<Integer> mGender = new MutableLiveData<>();
-    private MutableLiveData<String> mName = new MutableLiveData<>();
-    private MutableLiveData<Integer> mCWeight = new MutableLiveData<>();
-    private MutableLiveData<Integer> mIWeight = new MutableLiveData<>();
+    public MutableLiveData<Integer> mGender = new MutableLiveData<>();
+    public MutableLiveData<String> mName = new MutableLiveData<>();
+    public MutableLiveData<Integer> mCWeight = new MutableLiveData<>();
+    public MutableLiveData<Integer> mIWeight = new MutableLiveData<>();
+    public Repository mRepository;
 
+//    public PageViewModel(Repository mRepository){
+//        this.mRepository = mRepository;
+//    }
 
-    public void setGender(int i) {
-        mGender.setValue(i);
-    }
-    public void setName(String name) {
+    public PageViewModel(String name, int cweight, int iweight, int gender){
+        mRepository = new Repository(name, cweight, iweight, gender);
         mName.setValue(name);
-    }
-    public void setCWeight(int cweight) {
         mCWeight.setValue(cweight);
-    }
-    public void setIWeight(int iweight) {
         mIWeight.setValue(iweight);
+        mGender.setValue(gender);
+    }
+
+    public void setGender(int gender) {
+//        mGender.setValue(gender);
+        mRepository.setGender(gender);
+    }
+    public void setName(String s) {
+//        mRepository.setName(s);
     }
 
     public LiveData<Integer> getGender() {
+        mGender = mRepository.getGender();
         return mGender;
     }
-    public LiveData<String> getName() {
+    public MutableLiveData<String> getName(){
+//        mName = mRepository.getName();
         return mName;
-    }
-    public LiveData<Integer> getCWeight() {
-        return mCWeight;
-    }
-    public LiveData<Integer> getIWeight() {
-        return mIWeight;
     }
 }

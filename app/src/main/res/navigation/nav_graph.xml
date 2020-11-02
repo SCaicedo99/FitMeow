@@ -20,12 +20,21 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
-            android:id="@+id/action_profileFragment_to_reportFragment"
-            app:destination="@id/reportFragment" />
+            android:id="@+id/action_profileFragment_to_graphFragment"
+            app:destination="@id/graphFragment" />
     </fragment>
     <fragment
         android:id="@+id/reportFragment"
         android:name="com.example.fitmeow.ReportFragment"
         android:label="fragment_report"
         tools:layout="@layout/fragment_report" />
+    <fragment
+        android:id="@+id/graphFragment"
+        android:name="com.example.fitmeow.GraphFragment"
+        android:label="fragment_graph"
+        tools:layout="@layout/fragment_graph" >
+        <action
+            android:id="@+id/action_graphFragment_to_reportFragment"
+            app:destination="@id/reportFragment" />
+    </fragment>
 </navigation>
