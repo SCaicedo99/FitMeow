@@ -1,10 +1,9 @@
 package com.example.fitmeow;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -24,13 +23,16 @@ import android.widget.TextView;
  */
 public class ProfileFragment extends Fragment {
 
-    public PageViewModel pageViewModel;
     EditText nameInput;
     Spinner genderInput;
     EditText cweightInput;
     EditText iweightInput;
+    EditText brandInput;
+    EditText foodInfoInput;
     Button calculateButton;
     String name;
+    String brand;
+    float foodInfo;
     int gender;
     int cweight;
     int iweight;
@@ -50,8 +52,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = new ViewModelProvider(this, new PageFactory("", 0,0,1)).get(PageViewModel.class);
-//        pageViewModel = new ViewModelProvider(this, new PageFactory()).get(PageViewModel.class);
     }
 
     @Override
@@ -59,6 +59,8 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, null);
         nameInput = (EditText) view.findViewById(R.id.input_name);
+        brandInput = (EditText) view.findViewById(R.id.food_brand);
+        foodInfoInput = (EditText) view.findViewById(R.id.food_info);
         cweightInput = (EditText) view.findViewById(R.id.input_current_weight);
         iweightInput = (EditText) view.findViewById(R.id.input_ideal_weight);
         genderInput = (Spinner) view.findViewById(R.id.spinner1);
@@ -72,31 +74,71 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 gender = position;
-//                pageViewModel.setGender(gender);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
         calculateButton = (Button) view.findViewById(R.id.calculate_button);
+        result = (TextView) view.findViewById(R.id.testing);
+
+
+
+        final SharedPreferences testings = getContext().getSharedPreferences("CatProfile", 0);
+        final SharedPreferences.Editor editor = testings.edit();
+        int curWeight = testings.getInt("CurrentWeight", 0);
+        if (curWeight != 0) {
+            editor.putBoolean("NotFirstTime", true);
+            name = testings.getString("CatName", " ");
+            cweight = testings.getInt("CurrentWeight", 0);
+            iweight = testings.getInt("IdealWeight", 0);
+            brand = testings.getString("FoodBrand", " ");
+            foodInfo = testings.getFloat("FoodInfo", 0);
+
+            nameInput.setText(name);
+            cweightInput.setText(Integer.toString(cweight));
+            iweightInput.setText(Integer.toString(iweight));
+            brandInput.setText(brand);
+            foodInfoInput.setText(Float.toString(foodInfo));
+            calculateButton.setText("UPDATE");
+
+        }
+//            try {
+//                fileOutputStream = getContext().openFileOutput("Profile File.txt", Context.MODE_APPEND);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pageViewModel.setGender(3);
                 cweight = Integer.valueOf(cweightInput.getText().toString());
                 iweight = Integer.valueOf(iweightInput.getText().toString());
                 name = nameInput.getText().toString();
-                Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_graphFragment);
-            }
-        });
-        result = (TextView) view.findViewById(R.id.testing);
+                brand = brandInput.getText().toString();
+                foodInfo = Float.valueOf(foodInfoInput.getText().toString());
 
-        pageViewModel.getGender().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer s) {
-                result.setText(Integer.toString(s));
+                editor.putString("CatName", name);
+                editor.putInt("CurrentWeight", cweight);
+                editor.putInt("IdealWeight",iweight);
+                editor.putString("FoodBrand", brand);
+                editor.putFloat("FoodInfo", foodInfo);
+                editor.apply();
+
+//                    try {
+//                        fileOutputStream.write(name.getBytes());
+//                        fileOutputStream.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+                if(testings.getBoolean("NotFirstTime", false)){
+                    Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_graphFragment);
+                }else {
+                    Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_finishFragment);
+                }
             }
         });
+
         return view;
     }
 }

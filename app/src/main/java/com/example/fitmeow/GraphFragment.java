@@ -1,5 +1,6 @@
 package com.example.fitmeow;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 public class GraphFragment extends Fragment {
@@ -30,6 +30,8 @@ public class GraphFragment extends Fragment {
     Random random;
     ArrayList<BarEntry> barEntries;
     Button goToReportButton;
+    Button editProfileButton;
+    float totalCalBurnt;
 
     public GraphFragment() {
         // Required empty public constructor
@@ -54,7 +56,7 @@ public class GraphFragment extends Fragment {
 
         barChart = (BarChart) view.findViewById(R.id.bargraph);
 
-        createRandomBarGraph("2020/10/05", "2020/11/01");
+        createRandomBarGraph("0:00", "23:59");
 
         goToReportButton = (Button) view.findViewById(R.id.goToReport);
         goToReportButton.setOnClickListener(new View.OnClickListener() {
@@ -63,13 +65,18 @@ public class GraphFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_graphFragment_to_reportFragment);
             }
         });
-
-        return view;
+        editProfileButton = (Button) view.findViewById(R.id.editProfilebutton);
+        editProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_graphFragment_to_profileFragment);
+            }
+        });        return view;
     }
 
     public void createRandomBarGraph(String Date1, String Date2){
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
 
         try {
             Date date1 = simpleDateFormat.parse(Date1);
@@ -89,18 +96,26 @@ public class GraphFragment extends Fragment {
             barEntries = new ArrayList<>();
             float max = 0f;
             float value = 0f;
+            totalCalBurnt = 0f;
             random = new Random();
             for(int j = 0; j< dates.size();j++){
-                max = 100f;
+                max = 15f;
                 value = random.nextFloat()*max;
+                totalCalBurnt += value;
                 barEntries.add(new BarEntry(value,j));
             }
+
+            SharedPreferences settings = getContext().getSharedPreferences("totalCalBurnt", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putInt("totalCalBurnt", (int)totalCalBurnt);
+
+            editor.apply();
 
         }catch(ParseException e){
             e.printStackTrace();
         }
 
-        BarDataSet barDataSet = new BarDataSet(barEntries,"Daily Calories Burnt");
+        BarDataSet barDataSet = new BarDataSet(barEntries,"Hourly Calories Burnt");
         BarData barData = new BarData(dates, barDataSet);
         barChart.setData(barData);
         barChart.setDescription("Activity Graph");
@@ -110,17 +125,16 @@ public class GraphFragment extends Fragment {
         ArrayList<String> list = new ArrayList<String>();
         while(startDate.compareTo(endDate)<=0){
             list.add(getDate(startDate));
-            startDate.add(Calendar.DAY_OF_MONTH,1);
+            startDate.add(Calendar.HOUR_OF_DAY,1);
         }
         return list;
     }
 
     public String getDate(Calendar cld){
-        String curDate = cld.get(Calendar.YEAR) + "/" + (cld.get(Calendar.MONTH) + 1) + "/"
-                +cld.get(Calendar.DAY_OF_MONTH);
+        String curDate = cld.get(Calendar.HOUR_OF_DAY) + ":" + (cld.get(Calendar.MINUTE));
         try{
-            Date date = new SimpleDateFormat("yyyy/MM/dd").parse(curDate);
-            curDate =  new SimpleDateFormat("yyy/MM/dd").format(date);
+            Date date = new SimpleDateFormat("HH:mm").parse(curDate);
+            curDate =  new SimpleDateFormat("HH:mm").format(date);
         }catch(ParseException e){
             e.printStackTrace();
         }
