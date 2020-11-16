@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_graphFragment"
+            app:destination="@id/graphFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -22,6 +25,12 @@
         <action
             android:id="@+id/action_profileFragment_to_graphFragment"
             app:destination="@id/graphFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_reportFragment"
+            app:destination="@id/reportFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_finishFragment"
+            app:destination="@id/finishFragment" />
     </fragment>
     <fragment
         android:id="@+id/reportFragment"
@@ -36,5 +45,13 @@
         <action
             android:id="@+id/action_graphFragment_to_reportFragment"
             app:destination="@id/reportFragment" />
+        <action
+            android:id="@+id/action_graphFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/finishFragment"
+        android:name="com.example.fitmeow.FinishFragment"
+        android:label="fragment_finish"
+        tools:layout="@layout/fragment_finish" />
 </navigation>

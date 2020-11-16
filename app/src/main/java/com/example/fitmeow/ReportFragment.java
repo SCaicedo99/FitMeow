@@ -1,16 +1,20 @@
 package com.example.fitmeow;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-//import com.example.fitmeow.ProfileFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,10 +23,11 @@ import android.widget.TextView;
  */
 public class ReportFragment extends Fragment {
 
-    private PageViewModel pageViewModel;
-    TextView result;
-//    private ProfileFragment mProfileFragment;
-
+    TextView resultStatement;
+    TextView resultTitle;
+    String name;
+    int totalCalBurnt;
+    int amountofFood;
 
     public ReportFragment() {
         // Required empty public constructor
@@ -38,24 +43,36 @@ public class ReportFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = new ViewModelProvider(this, new PageFactory("",0,0,2)).get(PageViewModel.class);
-//        pageViewModel = new ViewModelProvider(this, new PageFactory()).get(PageViewModel.class);
-//        mProfileFragment = new ProfileFragment();
-//        pageViewModel = mProfileFragment.pageViewModel;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_report, null);
-        result = (TextView) view.findViewById(R.id.result_statement);
+        resultTitle = (TextView) view.findViewById(R.id.result_title);
+        resultStatement = (TextView) view.findViewById(R.id.result_statement);
+//        try {
+//            FileInputStream fileInputStream = getContext().openFileInput("Profile File.txt");
+//            Scanner scanner = new Scanner(fileInputStream);
+//            scanner.useDelimiter("/");
+//            while(scanner.hasNext()) {
+//                name = scanner.next();
+//            }
+//            scanner.close();
+//            SharedPreferences settings = getContext().getSharedPreferences("totalCalBurnt", 0);
+//            totalCalBurnt = settings.getInt("totalCalBurnt", 0);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+        SharedPreferences calories = getContext().getSharedPreferences("totalCalBurnt", 0);
+        SharedPreferences profile = getContext().getSharedPreferences("CatProfile", 0);
 
-        pageViewModel.getGender().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer s) {
-                result.setText(Integer.toString(s));
-            }
-        });
+        totalCalBurnt = calories.getInt("totalCalBurnt", 0);
+        name = profile.getString("CatName", "null");
+        amountofFood = (int) Math.round(totalCalBurnt/4.4);
+        resultTitle.setText("Daily Report");
+        resultStatement.setText(name + " has burnt a total of " + Integer.toString(totalCalBurnt) +
+                " Calories today." + "\n\nWe recommend " + Integer.toString(amountofFood) + " grams of food for feeding.");
         return view;
     }
 }
