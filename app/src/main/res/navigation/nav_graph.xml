@@ -14,8 +14,8 @@
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_graphFragment"
-            app:destination="@id/graphFragment" />
+            android:id="@+id/action_homeFragment_to_blueToothFragment"
+            app:destination="@id/blueToothFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -23,20 +23,21 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
-            android:id="@+id/action_profileFragment_to_graphFragment"
-            app:destination="@id/graphFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_reportFragment"
-            app:destination="@id/reportFragment" />
-        <action
             android:id="@+id/action_profileFragment_to_finishFragment"
             app:destination="@id/finishFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_blueToothFragment"
+            app:destination="@id/blueToothFragment" />
     </fragment>
     <fragment
         android:id="@+id/reportFragment"
         android:name="com.example.fitmeow.ReportFragment"
         android:label="fragment_report"
-        tools:layout="@layout/fragment_report" />
+        tools:layout="@layout/fragment_report" >
+        <action
+            android:id="@+id/action_reportFragment_to_blueToothFragment"
+            app:destination="@id/blueToothFragment" />
+    </fragment>
     <fragment
         android:id="@+id/graphFragment"
         android:name="com.example.fitmeow.GraphFragment"
@@ -46,12 +47,30 @@
             android:id="@+id/action_graphFragment_to_reportFragment"
             app:destination="@id/reportFragment" />
         <action
-            android:id="@+id/action_graphFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            android:id="@+id/action_graphFragment_to_blueToothFragment"
+            app:destination="@id/blueToothFragment" />
     </fragment>
     <fragment
         android:id="@+id/finishFragment"
         android:name="com.example.fitmeow.FinishFragment"
         android:label="fragment_finish"
-        tools:layout="@layout/fragment_finish" />
+        tools:layout="@layout/fragment_finish" >
+        <action
+            android:id="@+id/action_finishFragment_to_blueToothFragment"
+            app:destination="@id/blueToothFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/blueToothFragment"
+        android:name="com.example.fitmeow.BlueToothFragment"
+        android:label="fragment_blue_tooth"
+        tools:layout="@layout/fragment_blue_tooth" >
+        <action
+            android:id="@+id/action_blueToothFragment_to_graphFragment"
+            app:destination="@id/graphFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/btFragment"
+        android:name="com.example.fitmeow.btFragment"
+        android:label="fragment_bt"
+        tools:layout="@layout/fragment_bt" />
 </navigation>
