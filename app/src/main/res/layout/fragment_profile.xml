@@ -125,6 +125,20 @@
                 android:inputType="numberDecimal"
                 android:textSize="32sp" />
 
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Device?"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
 
             <Button
                 android:id="@+id/calculate_button"
@@ -132,13 +146,6 @@
                 android:layout_height="wrap_content"
                 android:text="Setup Profile"
                 android:textSize="32sp" />
-
-            <TextView
-                android:id="@+id/testing"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="36sp" />
 
         </LinearLayout>
     </ScrollView>

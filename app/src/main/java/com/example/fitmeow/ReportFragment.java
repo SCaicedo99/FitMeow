@@ -4,17 +4,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +22,7 @@ public class ReportFragment extends Fragment {
     TextView resultStatement;
     TextView resultTitle;
     String name;
+    Button backButton;
     int totalCalBurnt;
     int amountofFood;
 
@@ -51,6 +48,7 @@ public class ReportFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_report, null);
         resultTitle = (TextView) view.findViewById(R.id.result_title);
         resultStatement = (TextView) view.findViewById(R.id.result_statement);
+        backButton = (Button) view.findViewById(R.id.backButton);
 //        try {
 //            FileInputStream fileInputStream = getContext().openFileInput("Profile File.txt");
 //            Scanner scanner = new Scanner(fileInputStream);
@@ -73,6 +71,12 @@ public class ReportFragment extends Fragment {
         resultTitle.setText("Daily Report");
         resultStatement.setText(name + " has burnt a total of " + Integer.toString(totalCalBurnt) +
                 " Calories today." + "\n\nWe recommend " + Integer.toString(amountofFood) + " grams of food for feeding.");
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_reportFragment_to_blueToothFragment);
+            }
+        });
         return view;
     }
 }

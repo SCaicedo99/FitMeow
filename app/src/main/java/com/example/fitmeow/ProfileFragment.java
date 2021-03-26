@@ -1,5 +1,7 @@
 package com.example.fitmeow;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -16,6 +18,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Set;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProfileFragment#newInstance} factory method to
@@ -25,6 +29,8 @@ public class ProfileFragment extends Fragment {
 
     EditText nameInput;
     Spinner genderInput;
+    Spinner deviceInput;
+    BluetoothDevice[] btArray;
     EditText cweightInput;
     EditText iweightInput;
     EditText brandInput;
@@ -34,9 +40,10 @@ public class ProfileFragment extends Fragment {
     String brand;
     float foodInfo;
     int gender;
+    int device;
     int cweight;
     int iweight;
-    TextView result;
+    BluetoothAdapter bluetoothAdapter;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -79,9 +86,37 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
-        calculateButton = (Button) view.findViewById(R.id.calculate_button);
-        result = (TextView) view.findViewById(R.id.testing);
 
+        deviceInput = (Spinner) view.findViewById(R.id.spinner2);
+        bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
+        Set<BluetoothDevice> bt=bluetoothAdapter.getBondedDevices();
+        String[] strings=new String[bt.size()];
+        btArray=new BluetoothDevice[bt.size()];
+        int index=0;
+
+        if( bt.size()>0)
+        {
+            for(BluetoothDevice device : bt)
+            {
+                btArray[index]= device;
+                strings[index]=device.getName();
+                index++;
+            }
+            ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getActivity().getApplicationContext(),android.R.layout.simple_list_item_1,strings);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            deviceInput.setAdapter(arrayAdapter);
+            deviceInput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    device = position;
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {}
+            });
+        }//else, an alert prompt telling users to go to the Bluetooth setting of the phone to discover and pair devices
+
+        calculateButton = (Button) view.findViewById(R.id.calculate_button);
 
 
         final SharedPreferences testings = getContext().getSharedPreferences("CatProfile", 0);
@@ -123,6 +158,7 @@ public class ProfileFragment extends Fragment {
                 editor.putInt("IdealWeight",iweight);
                 editor.putString("FoodBrand", brand);
                 editor.putFloat("FoodInfo", foodInfo);
+                editor.putInt("Device", device);
                 editor.apply();
 
 //                    try {
@@ -132,7 +168,7 @@ public class ProfileFragment extends Fragment {
 //                        e.printStackTrace();
 //                    }
                 if(testings.getBoolean("NotFirstTime", false)){
-                    Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_graphFragment);
+                    Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_blueToothFragment);
                 }else {
                     Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_finishFragment);
                 }

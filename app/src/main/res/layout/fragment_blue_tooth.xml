@@ -2,31 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout4"
+    android:id="@+id/frameLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingTop="16dp"
-    android:paddingRight="16dp"
-    android:paddingBottom="16dp"
-    tools:context=".GraphFragment">
-
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/bargraph"
-        android:layout_width="310dp"
-        android:layout_height="400dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.564"></com.github.mikephil.charting.charts.BarChart>
+    tools:context=".BlueToothFragment">
 
     <Button
         android:id="@+id/viewGraph"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show report"
+        android:text="view Graph"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.762"
@@ -53,26 +38,48 @@
         android:text="Calories Burnt Data of Today"
         android:textSize="26sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/bargraph"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.915" />
+        app:layout_constraintVertical_bias="0.179" />
 
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/refreshButton"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.877"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bargraph"
-        app:layout_constraintVertical_bias="0.038" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.875" />
 
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="150dp"
+        android:layout_height="386dp"
+        android:text="Generating..."
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.773"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.559" />
+
+    <TextView
+        android:id="@+id/textView47"
+        android:layout_width="148dp"
+        android:layout_height="366dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,3 +12,8 @@
 /captures
 .externalNativeBuild
 .cxx
+/app/src/main/java/com/example/fitmeow/PageFactory.java
+/app/src/main/java/com/example/fitmeow/PageViewModel.java
+/app/src/main/java/com/example/fitmeow/Repository.java
+/app/src/main/java/com/example/fitmeow/btFragment.java
+/app/src/main/res/layout/fragment_bt.xml
